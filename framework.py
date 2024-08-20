@@ -383,7 +383,7 @@ class agent:
                 new_q = q + alpha * ( r + self.discount*q_next - q )
 
                 self.Q.update(s,a, new_q)
-                if new_q > q:
+                if new_q < q:
                     self.pi.update(s, self.Q.argmax_a(s)[0])
 
                 s = s_next
