@@ -30,8 +30,8 @@ def danger_region(i,j):
 
     danger = danger1 or danger2
 
-    #return danger
-    return diamond(i,j, -n/5, -m/5) or diamond(i,j, n/10, m/5)
+    return danger
+    #return diamond(i,j, -n/5, -m/5) or diamond(i,j, n/10, m/5)
 
 
 def circular(i, j):
@@ -217,4 +217,5 @@ env = environment(K,R,d0)
 #agent1 = agent(env,discount=0.9, history_callback=plot, action0=['u','r'])
 agent1 = agent(env,discount=0.9, history_callback=plot, action0=None)
 
-agent1.sarsa(alpha=0.001, epsilon=0.01)
+#agent1.sarsa(alpha=0.1, epsilon=0.01)
+agent1.q_learning(alpha=0.1, epsilon=0.01)

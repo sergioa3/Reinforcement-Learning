@@ -349,7 +349,7 @@ class agent:
 
     def sarsa(self, alpha, epsilon):
         self.running = True
-        while True:
+        while self.running:
             print(self.cummulative_reward)
             self.restart()
             terminated = False
@@ -388,7 +388,46 @@ class agent:
 
                 s = s_next
                 a = a_next
-                self.update(s, r)
+                self.update(s_next, r)
+
+
+    def q_learning(self, alpha, epsilon):
+        self.running = True
+        while self.running:
+            print(self.cummulative_reward)
+            self.restart()
+            terminated = False
+            s = self.state
+            
+
+            while not terminated:
+
+                if np.random.binomial(n=1, p=1-epsilon)==1:
+                    #choose Q greedy action
+                    a = self.pi.get_action(s)
+                else:
+                    #choose random action
+                    actions = self.environment.get_actions(s)
+                    a = np.random.choice(np.array(list(actions)))
+
+            
+                
+                s_next, r, terminated = self.environment.take_action(s, a)
+                #print(s, a, s_next)
+
+
+
+
+                q = self.Q.get(s, a)
+                q_max_s_next = self.Q.argmax_a(s_next)[1]
+                new_q = q + alpha * ( r + self.discount*q_max_s_next - q )
+
+                self.Q.update(s,a, new_q)
+                #if new_q < q:
+                self.pi.update(s, self.Q.argmax_a(s)[0])
+
+                s = s_next
+                self.update(s_next, r)
                 
             
 
