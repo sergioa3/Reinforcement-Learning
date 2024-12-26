@@ -1,1 +1,1 @@
-Finite dimensional environments for now. Deep-learning framework could come in separate repo.
+Finite dimensional environments for now. Deep-learning framework could come in separate repo. Current example setup is gridworld with score subtracting red areas and objective green area. Gifs attached.
